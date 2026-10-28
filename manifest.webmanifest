@@ -1,0 +1,16 @@
+{
+  "name": "Runner Zones",
+  "short_name": "Runner Zones",
+  "description": "Zonas de frecuencia cardiaca para correr según tu edad",
+  "lang": "es",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#2B2D6E",
+  "theme_color": "#2B2D6E",
+  "icons": [
+    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}

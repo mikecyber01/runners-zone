@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Runner Zones">
+<meta name="theme-color" content="#2B2D6E">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<title>Runner Zones</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&family=Barlow:wght@400;500;600&display=swap">
+<style>
+:root{--bg:#EAF0F6;--card:#fff;--ink:#172033;--muted:#5B677A;--line:#D8E0EA;--brand:#E4572E;--hi:#FFF3E6;
+--z1:#3FB8B0;--z2:#3FAE6E;--z3:#E9B424;--z4:#F07F2B;--z5:#E03B45;
+--disp:'Barlow Condensed','Arial Narrow',Impact,sans-serif;--body:'Barlow',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10162A;--card:#1A2240;--ink:#EEF2FA;--muted:#9AA7C0;--line:#2B3560;--hi:#2A2540}}
+:root[data-theme="dark"]{--bg:#10162A;--card:#1A2240;--ink:#EEF2FA;--muted:#9AA7C0;--line:#2B3560;--hi:#2A2540}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.45;-webkit-text-size-adjust:100%}
+.wrap{max-width:560px;margin:0 auto;padding:0 16px 40px}
+.hero{margin:0 -16px;position:relative}
+.hero svg{display:block;width:100%;height:auto}
+.hero h1{position:absolute;left:20px;top:16px;margin:0;font:800 clamp(34px,10vw,48px)/.95 var(--disp);color:#fff;text-shadow:0 2px 12px rgba(20,22,63,.45)}
+.hero p{position:absolute;left:20px;top:calc(16px + clamp(34px,10vw,48px)*1.9);margin:0;color:#fff;font-weight:500;max-width:60%;text-shadow:0 1px 8px rgba(20,22,63,.5)}
+.panel{background:var(--card);border-radius:22px;padding:20px;margin-top:-26px;position:relative;box-shadow:0 10px 30px rgba(23,32,51,.14)}
+label.t{font-weight:600;color:var(--muted);font-size:15px}
+.age{display:flex;align-items:center;justify-content:center;gap:18px;margin:6px 0 4px}
+.age button{width:52px;height:52px;border-radius:50%;border:2px solid var(--line);background:var(--bg);color:var(--ink);font:600 28px/1 var(--body);cursor:pointer}
+.age button:active{transform:scale(.94)}
+.age output{font:800 76px/1 var(--disp);min-width:110px;text-align:center}
+.age small{display:block;font:500 15px var(--body);color:var(--muted);text-align:center;margin-top:-4px}
+input[type=range]{width:100%;accent-color:var(--brand);height:32px}
+.max{display:flex;justify-content:space-between;align-items:baseline;margin-top:10px;padding-top:14px;border-top:1px solid var(--line)}
+.max b{font:800 54px/1 var(--disp);color:var(--brand)}
+.max span{color:var(--muted);font-size:14px}
+.tabs{display:flex;gap:6px;background:var(--line);padding:4px;border-radius:14px;margin:22px 0 14px}
+.tabs button{flex:1;border:0;border-radius:11px;padding:11px 6px;font:600 15px var(--body);background:transparent;color:var(--muted);cursor:pointer}
+.tabs button[aria-selected=true]{background:var(--card);color:var(--ink);box-shadow:0 2px 8px rgba(23,32,51,.12)}
+.zone{background:var(--card);border-radius:18px;margin-bottom:10px;padding:14px 16px 14px 20px;display:grid;grid-template-columns:1fr auto;gap:2px 12px;align-items:center;position:relative;overflow:hidden}
+.zone::before{content:"";position:absolute;left:0;top:0;bottom:0;width:8px;background:var(--c)}
+.zone h3{margin:0;font:800 22px/1.1 var(--disp);letter-spacing:.2px}
+.zone .pct{font-size:13px;color:var(--muted);font-weight:500}
+.zone .bpm{grid-row:1/3;grid-column:2;text-align:right;font:800 34px/1 var(--disp);color:var(--c)}
+.zone .bpm small{display:block;font:500 12px var(--body);color:var(--muted);margin-top:2px}
+.zone p{grid-column:1/3;margin:6px 0 0;font-size:15px}
+.bar{grid-column:1/3;height:6px;border-radius:4px;background:var(--line);margin-top:8px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--c);border-radius:4px}
+.quote{border-radius:22px;overflow:hidden;background:var(--card);margin-top:18px}
+.quote svg{display:block;width:100%;height:auto}
+.quote div{padding:16px 20px 20px}
+.quote q{display:block;font:800 28px/1.1 var(--disp);quotes:"“" "”"}
+.quote button{margin-top:12px;border:0;border-radius:12px;background:var(--brand);color:#fff;font:600 15px var(--body);padding:11px 18px;cursor:pointer}
+.tw{overflow-x:auto;background:var(--card);border-radius:18px}
+table{border-collapse:collapse;width:100%;min-width:520px;font-size:14px;text-align:center}
+th,td{padding:9px 6px;border-bottom:1px solid var(--line)}
+th{position:sticky;top:0;background:var(--card);font:800 17px var(--disp);color:#fff}
+th:first-child,th:nth-child(2){color:var(--ink)}
+td:first-child{font:800 18px var(--disp);position:sticky;left:0;background:var(--card)}
+tr.me td{background:var(--hi);font-weight:600}
+tr.me td:first-child{background:var(--hi);color:var(--brand)}
+.note{font-size:13px;color:var(--muted);margin:10px 4px}
+details{background:var(--card);border-radius:18px;padding:14px 18px;margin-top:18px}
+summary{font-weight:600;cursor:pointer}
+details ol{margin:10px 0 0;padding-left:20px;color:var(--muted)}
+details li{margin-bottom:6px}
+.inst{background:var(--card);border-radius:22px;padding:18px 20px;margin-top:22px}
+.inst h2{margin:0 0 8px;font:800 26px/1.1 var(--disp)}
+.os{border-top:1px solid var(--line);padding:12px 0 4px}
+.os ol{margin:6px 0 8px;padding-left:20px;color:var(--muted)}
+.os button{border:0;border-radius:12px;background:var(--brand);color:#fff;font:600 15px var(--body);padding:11px 18px;cursor:pointer;margin-bottom:8px}
+[hidden]{display:none!important}
+button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero" id="hero"></header>
+
+<section class="panel">
+  <label class="t" for="rng">¿Cuántos años tienes?</label>
+  <div class="age">
+    <button id="minus" aria-label="Un año menos">−</button>
+    <div><output id="ageOut" for="rng">35</output><small>años</small></div>
+    <button id="plus" aria-label="Un año más">+</button>
+  </div>
+  <input id="rng" type="range" min="10" max="90" value="35">
+  <div class="max"><span>Frecuencia cardiaca máxima<br>208 − 0,7 × edad</span><b id="fmax">184</b></div>
+</section>
+
+<div class="tabs" role="tablist">
+  <button role="tab" id="t1" aria-selected="true">Mis zonas</button>
+  <button role="tab" id="t2" aria-selected="false">Por edades</button>
+</div>
+
+<section id="v1">
+  <div id="zones"></div>
+  <article class="quote">
+    <div id="scene"></div>
+    <div><q id="phrase"></q><button id="next">Otra dosis de ánimo</button></div>
+  </article>
+</section>
+
+<section id="v2" hidden>
+  <div class="tw"><table id="tbl"></table></div>
+  <p class="note">Pulsaciones por minuto (ppm) de cada zona según la edad. Tu edad aparece resaltada.</p>
+</section>
+
+<section class="inst" id="instalar">
+  <h2>Instala Runner Zones</h2>
+  <div class="os"><b>iPhone · Safari</b><ol><li>Abre el enlace en Safari.</li><li>Toca Compartir (el cuadrado con la flecha).</li><li>Elige “Añadir a pantalla de inicio”.</li></ol></div>
+  <div class="os"><b>Android · Chrome</b><ol><li>Abre el enlace en Chrome.</li><li>Toca el menú ⋮.</li><li>Elige “Instalar aplicación” o “Añadir a pantalla de inicio”.</li></ol><button id="inst" hidden>Instalar ahora</button></div>
+</section>
+<p class="note">Fórmula orientativa. Si tienes dudas de salud, consulta con tu médico antes de entrenar a intensidad alta.</p>
+</div>
+
+<script>
+(function(){
+var Z=[
+{n:1,name:'Zona 1 · Recuperación',lo:.5,hi:.6,c:'var(--z1)',d:'Trote muy suave.'},
+{n:2,name:'Zona 2 · Base',lo:.6,hi:.7,c:'var(--z2)',d:'Carrera en la que puedes hablar sin problema. Es tu base.'},
+{n:3,name:'Zona 3 · Tempo',lo:.7,hi:.8,c:'var(--z3)',d:'Exigente pero sostenible: dices frases cortas.'},
+{n:4,name:'Zona 4 · Umbral',lo:.8,hi:.9,c:'var(--z4)',d:'Apenas te salen palabras sueltas.'},
+{n:5,name:'Zona 5 · Máximo',lo:.9,hi:1,c:'var(--z5)',d:'Esfuerzo máximo: no puedes hablar.'}];
+var PH=['Cada kilómetro cuenta, también el lento.','Hoy corres para el yo de dentro de un año.','La base se construye despacio. Confía en la Zona 2.','No tienes que ir rápido, tienes que salir.','Tus piernas pueden más de lo que tu cabeza cree.','Respira, suelta los hombros y sigue.'];
+function runner(x,y,s,c,p){var L=function(d){return '<path d="'+d+'" fill="none" stroke="'+c+'" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>'};var b;
+if(p==='win'){b=L('M0 0L0 -30')+L('M0 -28L-12 -46')+L('M0 -28L12 -46')+L('M0 0L-9 18')+L('M0 0L9 18')+'<circle cx="0" cy="-41" r="6" fill="'+c+'"/>';}
+else{b=L('M0 0L7 -30')+L('M7 -28L-4 -20L-8 -30')+L('M7 -28L18 -22L24 -30')+L('M0 0L16 -5L13 14')+L('M0 0L-8 10L-24 5')+'<circle cx="11" cy="-40" r="6" fill="'+c+'"/>';}
+return '<g transform="translate('+x+' '+y+') scale('+s+')">'+b+'</g>';}
+function svg(id,defs,body,h){return '<svg viewBox="0 0 400 '+(h||200)+'" role="img" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><defs>'+defs+'</defs>'+body+'</svg>';}
+var hero=svg('h','<linearGradient id="gh" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2B2D6E"/><stop offset=".55" stop-color="#E4572E"/><stop offset="1" stop-color="#FFB347"/></linearGradient>',
+'<rect width="400" height="250" fill="url(#gh)"/><circle cx="300" cy="150" r="44" fill="#FFD27A"/><circle cx="300" cy="150" r="62" fill="#FFD27A" opacity=".25"/>'+
+'<path d="M0 170Q70 120 140 165T280 160T400 150V250H0Z" fill="#3A2F6B"/><path d="M0 200Q100 170 200 195T400 185V250H0Z" fill="#23265E"/>'+
+'<path d="M20 232H380" stroke="#FFB347" stroke-width="3" stroke-dasharray="14 12" opacity=".7"/>'+
+runner(170,196,2.1,'#14163F','run')+'<path d="M60 180h40M45 192h42M70 204h30" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".55"/>',250);
+document.getElementById('hero').innerHTML=hero+'<h1>Runner<br>Zones</h1><p>Tus zonas de pulsaciones según tu edad</p>';
+var SC=[
+function(){return svg('a','<linearGradient id="ga" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1F3B73"/><stop offset="1" stop-color="#7FC8F8"/></linearGradient>','<rect width="400" height="200" fill="url(#ga)"/><path d="M0 130L90 60L150 110L230 40L330 120L400 80V200H0Z" fill="#E8F1FA"/><path d="M0 150L80 110L170 150L260 100L400 155V200H0Z" fill="#2E6B5E"/><path d="M0 178Q200 150 400 178V200H0Z" fill="#1E4A41"/>'+runner(150,172,1.8,'#fff','run'));},
+function(){return svg('b','<linearGradient id="gb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFB347"/><stop offset="1" stop-color="#FF7A59"/></linearGradient>','<rect width="400" height="200" fill="url(#gb)"/><circle cx="200" cy="120" r="70" fill="#FFE3A3" opacity=".6"/><rect x="0" y="168" width="400" height="32" fill="#7A2E3A"/><path d="M130 168V70M270 168V70" stroke="#fff" stroke-width="5"/><path d="M130 70H270" stroke="#fff" stroke-width="5"/><path d="M130 70h28v14h-28zM186 70h28v14h-28zM242 70h28v14h-28z" fill="#172033"/>'+runner(200,150,1.9,'#172033','win'));},
+function(){return svg('c','<linearGradient id="gc" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#14163F"/><stop offset="1" stop-color="#4B3A8F"/></linearGradient>','<rect width="400" height="200" fill="url(#gc)"/><circle cx="320" cy="50" r="24" fill="#FFF3C4"/><path d="M0 150h30v-40h24v40h20v-60h30v60h30v-30h26v30h40v-50h30v50h30v-35h24v35h50v50H0Z" fill="#232052"/><rect x="0" y="176" width="400" height="24" fill="#10102E"/>'+runner(170,170,1.8,'#FFB347','run')+'<path d="M80 150h40M62 162h44" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".4"/>');}];
+var si=0,pi=0;
+function showMot(){document.getElementById('scene').innerHTML=SC[si%3]();document.getElementById('phrase').textContent=PH[pi%PH.length];}
+var rng=document.getElementById('rng'),out=document.getElementById('ageOut'),fm=document.getElementById('fmax'),zs=document.getElementById('zones'),tb=document.getElementById('tbl');
+function fmax(a){return Math.round(208-0.7*a);}
+function render(){var a=+rng.value,m=fmax(a);out.textContent=a;fm.textContent=m;
+zs.innerHTML=Z.map(function(z){var lo=Math.round(m*z.lo),hi=Math.round(m*z.hi);
+return '<article class="zone" style="--c:'+z.c+'"><h3>'+z.name+'</h3><div class="bpm">'+lo+'–'+hi+'<small>ppm · '+Math.round(z.lo*100)+'–'+Math.round(z.hi*100)+'%</small></div><p>'+z.d+'</p><div class="bar"><i style="width:'+Math.round(z.hi*100)+'%"></i></div></article>';}).join('');
+var h='<thead><tr><th>Edad</th><th>FC máx</th>'+Z.map(function(z){return '<th style="background:'+z.c+'">Z'+z.n+'</th>';}).join('')+'</tr></thead><tbody>';
+for(var e=15;e<=80;e++){var mm=fmax(e);h+='<tr'+(e===a?' class="me" id="rowme"':'')+'><td>'+e+'</td><td>'+mm+'</td>'+Z.map(function(z){return '<td>'+Math.round(mm*z.lo)+'–'+Math.round(mm*z.hi)+'</td>';}).join('')+'</tr>';}
+tb.innerHTML=h+'</tbody>';
+try{localStorage.setItem('zonasfc-age',a);}catch(e){}}
+function setAge(v){rng.value=Math.max(10,Math.min(90,v));render();}
+rng.addEventListener('input',render);
+document.getElementById('minus').onclick=function(){setAge(+rng.value-1)};
+document.getElementById('plus').onclick=function(){setAge(+rng.value+1)};
+document.getElementById('next').onclick=function(){si++;pi++;showMot();};
+var t1=document.getElementById('t1'),t2=document.getElementById('t2'),v1=document.getElementById('v1'),v2=document.getElementById('v2');
+function tab(two){t1.setAttribute('aria-selected',!two);t2.setAttribute('aria-selected',two);v1.hidden=two;v2.hidden=!two;
+if(two){var r=document.getElementById('rowme'),w=document.querySelector('.tw');if(r&&w){w.scrollTop=0;window.scrollTo({top:0});}}}
+t1.onclick=function(){tab(false)};t2.onclick=function(){tab(true)};
+var dp=null,ib=document.getElementById('inst');window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();dp=e;ib.hidden=false;});ib.onclick=function(){if(dp){dp.prompt();dp=null;ib.hidden=true;}};
+try{if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js');}catch(e){}
+try{var s=parseInt(localStorage.getItem('zonasfc-age'),10);if(s>=10&&s<=90)rng.value=s;}catch(e){}
+pi=Math.floor(Math.random()*PH.length);si=pi;
+render();showMot();
+})();
+</script>
+</body>
+</html>
